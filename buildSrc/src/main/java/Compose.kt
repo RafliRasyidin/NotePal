@@ -27,4 +27,7 @@ object Compose {
     private const val lifecycleVersion = "2.6.2"
     const val viewModelCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion"
     const val lifecycleRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+
+    private const val constraintLayoutVersion = "1.0.1"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout-compose:$constraintLayoutVersion"
 }

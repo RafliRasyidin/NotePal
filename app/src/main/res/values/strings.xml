@@ -6,4 +6,7 @@
     <string name="lets_get_started">Let\'s Get Started</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="home">Home</string>
+    <string name="finished">Finished</string>
+    <string name="search">Search</string>
 </resources>
