@@ -10,7 +10,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.rasyidin.notepal.MainActivity
 import com.rasyidin.notepal.ui.theme.NotePalTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OnBoardingActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
