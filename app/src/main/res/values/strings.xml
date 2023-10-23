@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">NotePal</string>
+    <string name="on_boarding_1">Jot Down anything you want to achieve, today or in the future</string>
+    <string name="on_boarding_2">Different goals, different way to jot it down</string>
+    <string name="on_boarding_3">Text area, checklist, or some combination. Adapt with your needs</string>
+    <string name="lets_get_started">Let\'s Get Started</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+</resources>

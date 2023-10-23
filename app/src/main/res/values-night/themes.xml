@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.NotePal" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="SplashScreenTheme" parent="Theme.SplashScreen">
+        <item name="android:windowBackground">@drawable/bg_splash_12</item>
+        <item name="windowSplashScreenBackground">@color/darkBackground</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/bg_splash_12</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="postSplashScreenTheme">@style/Theme.NotePal</item>
+    </style>
+</resources>
