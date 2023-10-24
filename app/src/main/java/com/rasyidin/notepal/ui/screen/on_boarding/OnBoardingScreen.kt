@@ -1,9 +1,11 @@
 package com.rasyidin.notepal.ui.screen.on_boarding
 
+import android.app.Activity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,12 +22,16 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat
 import com.rasyidin.notepal.R
 import com.rasyidin.notepal.domain.model.component.ButtonStyles
 import com.rasyidin.notepal.domain.model.on_boarding.OnBoardingUi
@@ -43,6 +49,14 @@ fun OnBoardingScreen(
         modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.primary
     ) {
+        val view = LocalView.current
+        val statusBarColor = MaterialTheme.colorScheme.primary.toArgb()
+        val darkTheme = isSystemInDarkTheme()
+        SideEffect {
+            val window = (view.context as Activity).window
+            window.statusBarColor = statusBarColor
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+        }
         LaunchedEffect(key1 = true) {
             viewModel.event.collect { event ->
                 if (event is OnBoardingEvent.Navigate) {
