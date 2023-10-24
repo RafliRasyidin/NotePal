@@ -1,19 +1,23 @@
 package com.rasyidin.notepal.ui.component
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalAbsoluteTonalElevation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.Text
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -36,6 +40,8 @@ fun BottomNavBar(
     if (showNavBar) {
         ConstraintLayout {
             val backgroundColor = MaterialTheme.colorScheme.background
+            val primaryColor = MaterialTheme.colorScheme.primary
+            val outlineColor = MaterialTheme.colorScheme.outline
             val (bottomNavBar, fab) = createRefs()
             NavigationBar(
                 modifier = modifier.constrainAs(bottomNavBar) {
@@ -43,23 +49,23 @@ fun BottomNavBar(
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 },
-                containerColor = MaterialTheme.colorScheme.background,
-                contentColor = MaterialTheme.colorScheme.primary
+                containerColor = MaterialTheme.colorScheme.surface,
             ) {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currDestination = navBackStackEntry?.destination
                 navigationItems.map { navItem ->
                     val selected =
-                        currDestination?.hierarchy?.any { it.route == navItem.screen.route }
-                            ?: false
+                        currDestination?.hierarchy?.any { it.route == navItem.screen.route } ?: false
                     NavigationBarItem(
                         selected = selected,
                         colors = NavigationBarItemDefaults.colors(
-                            indicatorColor = MaterialTheme.colorScheme.background,
-                            selectedIconColor = MaterialTheme.colorScheme.primary,
-                            unselectedIconColor = MaterialTheme.colorScheme.outline,
-                            selectedTextColor = MaterialTheme.colorScheme.primary,
-                            unselectedTextColor = MaterialTheme.colorScheme.outline
+                            indicatorColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
+                                LocalAbsoluteTonalElevation.current
+                            ),
+                            selectedIconColor = primaryColor,
+                            unselectedIconColor = outlineColor,
+                            selectedTextColor = primaryColor,
+                            unselectedTextColor = outlineColor
                         ),
                         onClick = {
                             navController.navigate(navItem.screen.route) {
@@ -73,9 +79,18 @@ fun BottomNavBar(
                         icon = {
                             if (navItem.icon != -1) {
                                 Icon(
-                                    modifier = Modifier.size(36.dp),
+                                    modifier = Modifier.size(32.dp),
                                     painter = painterResource(id = if (selected) navItem.iconSelected else navItem.icon),
                                     contentDescription = null
+                                )
+                            }
+                        },
+                        label = {
+                            if (navItem.icon != -1) {
+                                Text(
+                                    modifier = Modifier.padding(top = 16.dp),
+                                    text = stringResource(id = navItem.name),
+                                    style = MaterialTheme.typography.labelSmall,
                                 )
                             }
                         }

@@ -30,7 +30,7 @@ val navigationItems = listOf(
         icon = -1,
         iconSelected = -1,
         name = R.string.search,
-        screen = Screen.SearchNotes
+        screen = Screen.EmptyMenu
     ),
     NavigationItem(
         icon = R.drawable.ic_search,
@@ -41,7 +41,7 @@ val navigationItems = listOf(
     NavigationItem(
         icon = R.drawable.ic_user_outlined,
         iconSelected = R.drawable.ic_user_filled,
-        name = R.string.home,
-        screen = Screen.Home
+        name = R.string.profile,
+        screen = Screen.Profile
     ),
 )
