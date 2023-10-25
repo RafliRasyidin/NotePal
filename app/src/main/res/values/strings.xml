@@ -17,4 +17,17 @@
     <string name="hint_search">Search…</string>
     <string name="not_found">Oops, Not Found!</string>
     <string name="not_found_description">Sorry, we can\'t find any result\nfor \"%s\".</string>
+    <string name="new_notes">New Notes</string>
+    <string name="back">Back</string>
+    <string name="what_do_you_want_to_notes">What Do You Want To Notes?</string>
+    <string name="interesting_idea">Interestring Idea</string>
+    <string name="interesting_idea_body">Use free text area, feel free to write it all</string>
+    <string name="buying_something">Buying Something</string>
+    <string name="buying_something_body">Use checklist, so you won’t miss anything</string>
+    <string name="goals">Goals</string>
+    <string name="goals_body">"Near/future goals, notes and keep focus "</string>
+    <string name="guidance">Guidance</string>
+    <string name="guidance_body">Create guidance for routine activities</string>
+    <string name="routine_tasks">Routine Tasks</string>
+    <string name="routine_tasks_body">Checklist with sub-checklist</string>
 </resources>

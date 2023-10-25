@@ -21,6 +21,8 @@ import com.rasyidin.notepal.ui.component.BottomNavBar
 import com.rasyidin.notepal.ui.navigation.Screen
 import com.rasyidin.notepal.ui.screen.finished.FinishedScreen
 import com.rasyidin.notepal.ui.screen.home.HomeScreen
+import com.rasyidin.notepal.ui.screen.notes.add.AddNotesScreen
+import com.rasyidin.notepal.ui.screen.notes.detail.DetailNoteScreen
 import com.rasyidin.notepal.ui.screen.profile.ProfileScreen
 import com.rasyidin.notepal.ui.screen.search.SearchNotesScreen
 import com.rasyidin.notepal.ui.theme.NotePalTheme
@@ -57,7 +59,9 @@ fun NotePalApp(
                 navController = navController,
                 showNavBar = bottomNavBarState,
                 onAddClick = {
-
+                    navController.navigate(
+                        route = Screen.AddNotes.route
+                    )
                 }
             )
         }
@@ -90,6 +94,21 @@ fun NotePalApp(
                         bottomNavBarState = true
                     }
                     ProfileScreen()
+                }
+                composable(Screen.AddNotes.route) {
+                    AddNotesScreen(
+                        onBackClick = {
+                            navController.popBackStack()
+                        },
+                        onNoteTypeClick = { item ->
+                            navController.navigate(
+                                route = Screen.DetailNote.route
+                            )
+                        }
+                    )
+                }
+                composable(Screen.DetailNote.route) {
+                    DetailNoteScreen()
                 }
             }
         )
