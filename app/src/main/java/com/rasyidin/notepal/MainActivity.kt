@@ -19,7 +19,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.rasyidin.notepal.ui.component.BottomNavBar
 import com.rasyidin.notepal.ui.navigation.Screen
+import com.rasyidin.notepal.ui.screen.finished.FinishedScreen
 import com.rasyidin.notepal.ui.screen.home.HomeScreen
+import com.rasyidin.notepal.ui.screen.profile.ProfileScreen
+import com.rasyidin.notepal.ui.screen.search.SearchNotesScreen
 import com.rasyidin.notepal.ui.theme.NotePalTheme
 
 class MainActivity : ComponentActivity() {
@@ -74,19 +77,19 @@ fun NotePalApp(
                     LaunchedEffect(Unit) {
                         bottomNavBarState = true
                     }
-                    HomeScreen()
+                    FinishedScreen()
                 }
                 composable(Screen.SearchNotes.route) {
                     LaunchedEffect(Unit) {
                         bottomNavBarState = true
                     }
-                    HomeScreen()
+                    SearchNotesScreen()
                 }
                 composable(Screen.Profile.route) {
                     LaunchedEffect(Unit) {
                         bottomNavBarState = true
                     }
-                    HomeScreen()
+                    ProfileScreen()
                 }
             }
         )

@@ -68,12 +68,14 @@ fun BottomNavBar(
                             unselectedTextColor = outlineColor
                         ),
                         onClick = {
-                            navController.navigate(navItem.screen.route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
+                            if (navItem.icon != -1) {
+                                navController.navigate(navItem.screen.route) {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    restoreState = true
+                                    launchSingleTop = true
                                 }
-                                restoreState = true
-                                launchSingleTop = true
                             }
                         },
                         icon = {
