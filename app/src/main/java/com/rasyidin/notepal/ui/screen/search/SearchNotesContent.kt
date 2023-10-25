@@ -15,11 +15,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rasyidin.notepal.R
+import com.rasyidin.notepal.ui.component.NegativeState
 import com.rasyidin.notepal.ui.component.SearchBox
 import com.rasyidin.notepal.ui.theme.NotePalTheme
 
@@ -42,6 +44,19 @@ fun SearchNotesContent(
 
                 }
             )
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .weight(1F),
+                contentAlignment = Alignment.Center
+            ) {
+                NegativeState(
+                    modifier = Modifier.align(Alignment.Center),
+                    image = R.drawable.illustration_6,
+                    title = stringResource(id = R.string.not_found),
+                    description = stringResource(id = R.string.not_found_description, text)
+                )
+            }
         }
     }
 }

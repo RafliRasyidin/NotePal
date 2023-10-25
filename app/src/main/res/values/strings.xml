@@ -15,4 +15,6 @@
     <string name="no_finished_notes_yet">No Finished Notes Yet</string>
     <string name="no_finished_notes_yet_description">Once you create a note and finish it.\nIt will be appeared on this screen.\nSo, let\'s start your journey</string>
     <string name="hint_search">Search…</string>
+    <string name="not_found">Oops, Not Found!</string>
+    <string name="not_found_description">Sorry, we can\'t find any result\nfor \"%s\".</string>
 </resources>
