@@ -108,7 +108,11 @@ fun NotePalApp(
                     )
                 }
                 composable(Screen.DetailNote.route) {
-                    DetailNoteScreen()
+                    DetailNoteScreen(
+                        onBackClick = {
+                            navController.popBackStack()
+                        }
+                    )
                 }
             }
         )

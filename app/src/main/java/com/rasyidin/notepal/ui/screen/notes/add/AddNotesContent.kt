@@ -62,7 +62,7 @@ fun AddNotesContent(
             icon = R.drawable.ic_light_bulb_outlined,
             color = notesPurpleContainer,
             colorContainerIcon = notesPurpleDark,
-            type = CardNoteType.InterestingIdea
+            type = CardNoteType.FreeNotes
         ),
         AddCardNoteModel(
             title = stringResource(id = R.string.buying_something),
@@ -70,7 +70,7 @@ fun AddNotesContent(
             icon = R.drawable.ic_shopping_cart_outlined,
             color = notesGreenContainer,
             colorContainerIcon = notesGreenDark,
-            type = CardNoteType.BuyingSomething
+            type = CardNoteType.Checklist
         ),
         AddCardNoteModel(
             title = stringResource(id = R.string.goals),
@@ -86,7 +86,7 @@ fun AddNotesContent(
             icon = R.drawable.ic_clipboard_list_outlined,
             color = notesRedContainer,
             colorContainerIcon = notesRedDark,
-            type = CardNoteType.Guidance
+            type = CardNoteType.Routines
         ),
         AddCardNoteModel(
             title = stringResource(id = R.string.routine_tasks),
@@ -94,7 +94,7 @@ fun AddNotesContent(
             icon = R.drawable.ic_clipboard_outlined,
             color = notesYellowContainer,
             colorContainerIcon = notesYellowDark,
-            type = CardNoteType.RoutineTask
+            type = CardNoteType.ChecklistWithSub
         ),
     )
     Surface(
@@ -288,7 +288,7 @@ fun PreviewCardTypeNotes() {
                 icon = R.drawable.ic_light_bulb_outlined,
                 color = notesPurpleContainer,
                 colorContainerIcon = notesPurpleDark,
-                type = CardNoteType.InterestingIdea
+                type = CardNoteType.FreeNotes
             ),
             onClick = {}
         )

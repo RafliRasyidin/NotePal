@@ -30,4 +30,8 @@
     <string name="guidance_body">Create guidance for routine activities</string>
     <string name="routine_tasks">Routine Tasks</string>
     <string name="routine_tasks_body">Checklist with sub-checklist</string>
+    <string name="title_here">Title Here</string>
+    <string name="hint_notes">Write your notes here…</string>
+    <string name="reminder_set">Reminder set on %s</string>
+    <string name="last_edited_at">Last edited at %s</string>
 </resources>

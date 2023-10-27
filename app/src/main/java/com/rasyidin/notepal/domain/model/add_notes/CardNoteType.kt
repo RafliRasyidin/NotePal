@@ -13,9 +13,9 @@ data class AddCardNoteModel(
 )
 
 enum class CardNoteType {
-    InterestingIdea,
-    BuyingSomething,
+    FreeNotes,
+    Checklist,
     Goals,
-    Guidance,
-    RoutineTask
+    Routines,
+    ChecklistWithSub
 }
