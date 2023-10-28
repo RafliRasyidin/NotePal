@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -42,6 +43,38 @@ import com.rasyidin.notepal.ui.theme.NotePalTheme
 import com.rasyidin.notepal.util.UiText
 
 @Composable
+fun DragHandleSheetExtrasMenuNote(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.background)
+            .padding(end = 16.dp, top = 16.dp, bottom = 8.dp),
+        horizontalArrangement = Arrangement.End
+    ) {
+        Box(
+            modifier = Modifier
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.surfaceVariant)
+                .size(24.dp)
+                .clickable { onClick() },
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_x),
+                contentDescription = null,
+                modifier = Modifier
+                    .wrapContentSize()
+                    .padding(2.dp),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+    }
+}
+
+@Composable
 fun SheetExtrasMenuNoteContent(
     modifier: Modifier = Modifier,
     onDeleteClick: () -> Unit = {},
@@ -51,6 +84,7 @@ fun SheetExtrasMenuNoteContent(
     Column(
         modifier = modifier
             .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 16.dp)
     ) {
         Text(
@@ -94,7 +128,7 @@ fun SheetExtrasMenuNoteContent(
 }
 
 @Composable
-fun MenuExtras(
+private fun MenuExtras(
     modifier: Modifier = Modifier,
     menus: List<MenuExtra>,
     noteType: CardNoteType,
@@ -129,8 +163,8 @@ private fun TileButton(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 16.dp)
-            .clickable { onClick(menu) },
+            .clickable { onClick(menu) }
+            .padding(vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Row(
@@ -215,6 +249,7 @@ fun PickColorNote(
             .size(32.dp)
             .clip(CircleShape)
             .background(colorNote.color)
+            .clickable { onItemClick(colorNote) }
             .then(
                 if (selected) {
                     Modifier
@@ -235,9 +270,6 @@ fun PickColorNote(
                         )
                 } else Modifier
             )
-            .clickable {
-                onItemClick(colorNote)
-            }
     )
 }
 

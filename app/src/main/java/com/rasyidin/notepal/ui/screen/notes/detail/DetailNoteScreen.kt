@@ -14,6 +14,5 @@ fun DetailNoteScreen(
         onBackClick = onBackClick,
         onBookmarkClick = {},
         onSearchClick = {},
-        onMenuClick = {}
     )
 }

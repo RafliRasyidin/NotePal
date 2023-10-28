@@ -17,15 +17,19 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,24 +38,60 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rasyidin.notepal.R
+import com.rasyidin.notepal.domain.model.add_notes.ColorNote
 import com.rasyidin.notepal.domain.model.add_notes.Label
+import com.rasyidin.notepal.domain.model.add_notes.MenuExtra
 import com.rasyidin.notepal.ui.component.Chip
 import com.rasyidin.notepal.ui.component.LineSeparator
 import com.rasyidin.notepal.ui.component.TextFieldNotes
 import com.rasyidin.notepal.ui.component.TextFieldTitleNotes
 import com.rasyidin.notepal.ui.component.ToolbarNotes
+import com.rasyidin.notepal.ui.screen.notes.detail.DragHandleSheetExtrasMenuNote
+import com.rasyidin.notepal.ui.screen.notes.detail.SheetExtrasMenuNoteContent
 import com.rasyidin.notepal.ui.theme.NotePalTheme
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FreeNotesContent(
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {},
     onSearchClick: () -> Unit = {},
     onBookmarkClick: () -> Unit = {},
-    onMenuClick: () -> Unit = {}
+    onDeleteClick: () -> Unit = {},
+    onMenuSheetClick: (MenuExtra) -> Unit = {},
+    onColorNoteClick: (ColorNote) -> Unit = {},
 ) {
     var title by remember { mutableStateOf("") }
     var body by remember { mutableStateOf("") }
+    var showSheet by remember { mutableStateOf(false) }
+    val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val scope = rememberCoroutineScope()
+    if (showSheet) {
+        ModalBottomSheet(
+            modifier = modifier,
+            shape = MaterialTheme.shapes.medium,
+            onDismissRequest = { showSheet = false },
+            sheetState = state,
+            dragHandle = {
+                DragHandleSheetExtrasMenuNote() {
+                    scope.launch {
+                        state.hide()
+                    }.invokeOnCompletion {
+                        if (!state.isVisible) {
+                            showSheet = false
+                        }
+                    }
+                }
+            }
+        ) {
+            SheetExtrasMenuNoteContent(
+                onDeleteClick = onDeleteClick,
+                onMenuClick = onMenuSheetClick,
+                onColorClick = onColorNoteClick
+            )
+        }
+    }
     Surface(
         modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -80,7 +120,7 @@ fun FreeNotesContent(
                         .padding(horizontal = 16.dp),
                     text = body,
                     hint = stringResource(id = R.string.hint_notes),
-                    onTextChange = { newText -> body = newText}
+                    onTextChange = { newText -> body = newText }
                 )
                 Spacer(modifier = Modifier.height(24.dp))
                 LineSeparator(modifier = Modifier.padding(horizontal = 16.dp))
@@ -142,7 +182,7 @@ fun FreeNotesContent(
                 Box(
                     modifier = Modifier
                         .background(color = MaterialTheme.colorScheme.primary)
-                        .clickable { onMenuClick() }
+                        .clickable { showSheet = true }
                         .padding(12.dp),
                     contentAlignment = Alignment.Center
                 ) {
@@ -163,7 +203,7 @@ fun FreeNotesContent(
 fun Labels(
     modifier: Modifier = Modifier,
     labels: List<Label>,
-    onLabelClick: (Label) -> Unit
+    onLabelClick: (Label) -> Unit,
 ) {
     FlowRow(
         modifier = modifier
@@ -186,7 +226,7 @@ fun Labels(
 @Composable
 private fun Reminder(
     modifier: Modifier = Modifier,
-    date: String
+    date: String,
 ) {
     Text(
         modifier = modifier
