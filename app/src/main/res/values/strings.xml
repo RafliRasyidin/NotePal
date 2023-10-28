@@ -34,4 +34,12 @@
     <string name="hint_notes">Write your notes here…</string>
     <string name="reminder_set">Reminder set on %s</string>
     <string name="last_edited_at">Last edited at %s</string>
+    <string name="change_background">Change Background</string>
+    <string name="extras">Extras</string>
+    <string name="set_reminder">Set Reminder</string>
+    <string name="not_set">Not Set</string>
+    <string name="change_note_type">Change Note Type</string>
+    <string name="add_label">Add Label</string>
+    <string name="mark_as_finished">Mark as Finished</string>
+    <string name="delete_note">Delete Note</string>
 </resources>
