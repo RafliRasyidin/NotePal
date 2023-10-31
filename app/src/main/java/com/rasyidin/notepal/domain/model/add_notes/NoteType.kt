@@ -7,15 +7,16 @@ data class AddCardNoteModel(
     val title: String,
     val body: String,
     @DrawableRes val icon: Int,
-    val type: CardNoteType,
+    val type: NoteType,
     val color: Color,
     val colorContainerIcon: Color,
 )
 
-enum class CardNoteType {
+enum class NoteType {
     FreeNotes,
     Checklist,
     Goals,
     Routines,
-    ChecklistWithSub
+    ChecklistWithSub,
+    PinnedNote
 }

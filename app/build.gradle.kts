@@ -76,6 +76,8 @@ dependencies {
     implementation(Room.roomKtx)
     implementation(Room.roomRuntime)
 
+    implementation(Coil.coilCompose)
+
     testImplementation(Testing.junit4)
     testImplementation(Testing.junitAndroidExt)
     testImplementation(Testing.truth)

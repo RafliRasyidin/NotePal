@@ -35,7 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rasyidin.notepal.R
 import com.rasyidin.notepal.domain.model.add_notes.AddCardNoteModel
-import com.rasyidin.notepal.domain.model.add_notes.CardNoteType
+import com.rasyidin.notepal.domain.model.add_notes.NoteType
 import com.rasyidin.notepal.ui.theme.NotePalTheme
 import com.rasyidin.notepal.ui.theme.lightBackground
 import com.rasyidin.notepal.ui.theme.notesGreenContainer
@@ -62,7 +62,7 @@ fun AddNotesContent(
             icon = R.drawable.ic_light_bulb_outlined,
             color = notesPurpleContainer,
             colorContainerIcon = notesPurpleDark,
-            type = CardNoteType.FreeNotes
+            type = NoteType.FreeNotes
         ),
         AddCardNoteModel(
             title = stringResource(id = R.string.buying_something),
@@ -70,7 +70,7 @@ fun AddNotesContent(
             icon = R.drawable.ic_shopping_cart_outlined,
             color = notesGreenContainer,
             colorContainerIcon = notesGreenDark,
-            type = CardNoteType.Checklist
+            type = NoteType.Checklist
         ),
         AddCardNoteModel(
             title = stringResource(id = R.string.goals),
@@ -78,7 +78,7 @@ fun AddNotesContent(
             icon = R.drawable.ic_sparkles_outlined,
             color = notesSalmonContainer,
             colorContainerIcon = notesSalmonDark,
-            type = CardNoteType.Goals
+            type = NoteType.Goals
         ),
         AddCardNoteModel(
             title = stringResource(id = R.string.guidance),
@@ -86,7 +86,7 @@ fun AddNotesContent(
             icon = R.drawable.ic_clipboard_list_outlined,
             color = notesRedContainer,
             colorContainerIcon = notesRedDark,
-            type = CardNoteType.Routines
+            type = NoteType.Routines
         ),
         AddCardNoteModel(
             title = stringResource(id = R.string.routine_tasks),
@@ -94,7 +94,7 @@ fun AddNotesContent(
             icon = R.drawable.ic_clipboard_outlined,
             color = notesYellowContainer,
             colorContainerIcon = notesYellowDark,
-            type = CardNoteType.ChecklistWithSub
+            type = NoteType.ChecklistWithSub
         ),
     )
     Surface(
@@ -288,7 +288,7 @@ fun PreviewCardTypeNotes() {
                 icon = R.drawable.ic_light_bulb_outlined,
                 color = notesPurpleContainer,
                 colorContainerIcon = notesPurpleDark,
-                type = CardNoteType.FreeNotes
+                type = NoteType.FreeNotes
             ),
             onClick = {}
         )

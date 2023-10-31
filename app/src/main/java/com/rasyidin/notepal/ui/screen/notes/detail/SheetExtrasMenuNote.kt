@@ -33,9 +33,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rasyidin.notepal.R
-import com.rasyidin.notepal.domain.model.add_notes.CardNoteType
 import com.rasyidin.notepal.domain.model.add_notes.ColorNote
 import com.rasyidin.notepal.domain.model.add_notes.MenuExtra
+import com.rasyidin.notepal.domain.model.add_notes.NoteType
+import com.rasyidin.notepal.domain.model.add_notes.NoteType.Checklist
+import com.rasyidin.notepal.domain.model.add_notes.NoteType.ChecklistWithSub
+import com.rasyidin.notepal.domain.model.add_notes.NoteType.FreeNotes
+import com.rasyidin.notepal.domain.model.add_notes.NoteType.Goals
+import com.rasyidin.notepal.domain.model.add_notes.NoteType.PinnedNote
+import com.rasyidin.notepal.domain.model.add_notes.NoteType.Routines
 import com.rasyidin.notepal.domain.model.add_notes.colorsNote
 import com.rasyidin.notepal.domain.model.add_notes.menusExtra
 import com.rasyidin.notepal.ui.component.LineSeparator
@@ -107,7 +113,7 @@ fun SheetExtrasMenuNoteContent(
         )
         MenuExtras(
             menus = menusExtra,
-            noteType = CardNoteType.FreeNotes,
+            noteType = FreeNotes,
             onMenuClick = onMenuClick
         )
         Spacer(modifier = Modifier.height(8.dp))
@@ -131,7 +137,7 @@ fun SheetExtrasMenuNoteContent(
 private fun MenuExtras(
     modifier: Modifier = Modifier,
     menus: List<MenuExtra>,
-    noteType: CardNoteType,
+    noteType: NoteType,
     onMenuClick: (MenuExtra) -> Unit,
 ) {
     LazyColumn(modifier = modifier) {
@@ -140,11 +146,12 @@ private fun MenuExtras(
                 menu = menu.copy(
                     value = if (menu.value == UiText.Unspecified) {
                         when (noteType) {
-                            CardNoteType.FreeNotes -> UiText.StringResource(R.string.interesting_idea)
-                            CardNoteType.Checklist -> UiText.StringResource(R.string.buying_something)
-                            CardNoteType.Goals -> UiText.StringResource(R.string.goals)
-                            CardNoteType.Routines -> UiText.StringResource(R.string.guidance)
-                            CardNoteType.ChecklistWithSub -> UiText.StringResource(R.string.routine_tasks)
+                            FreeNotes -> UiText.StringResource(R.string.interesting_idea)
+                            Checklist -> UiText.StringResource(R.string.buying_something)
+                            Goals -> UiText.StringResource(R.string.goals)
+                            Routines -> UiText.StringResource(R.string.guidance)
+                            ChecklistWithSub -> UiText.StringResource(R.string.routine_tasks)
+                            PinnedNote -> UiText.StringResource(R.string.pinned_notes)
                         }
                     } else menu.value
                 ),
