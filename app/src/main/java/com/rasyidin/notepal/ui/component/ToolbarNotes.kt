@@ -39,7 +39,7 @@ fun ToolbarNotes(
         ) {
             Row(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
+                    .padding(start = 12.dp, end = 16.dp)
                     .clip(MaterialTheme.shapes.medium)
                     .clickable {
                         onBackClick()
