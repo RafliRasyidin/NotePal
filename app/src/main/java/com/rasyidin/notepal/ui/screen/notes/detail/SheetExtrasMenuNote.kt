@@ -91,15 +91,17 @@ fun SheetExtrasMenuNoteContent(
         modifier = modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.background)
-            .padding(horizontal = 16.dp)
+            .padding(bottom = 32.dp)
     ) {
         Text(
             text = stringResource(id = R.string.change_background).uppercase(),
             style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(horizontal = 16.dp)
         )
         Spacer(modifier = Modifier.height(16.dp))
         PickColors(
+            modifier = Modifier.padding(horizontal = 16.dp),
             colors = colorsNote,
             onItemClick = onColorClick
         )
@@ -109,17 +111,20 @@ fun SheetExtrasMenuNoteContent(
         Text(
             text = stringResource(id = R.string.extras).uppercase(),
             style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(horizontal = 16.dp)
         )
         MenuExtras(
             menus = menusExtra,
             noteType = FreeNotes,
             onMenuClick = onMenuClick
         )
-        Spacer(modifier = Modifier.height(8.dp))
         LineSeparator()
         Spacer(modifier = Modifier.height(8.dp))
         TileButton(
+            modifier = Modifier
+                .clickable { onDeleteClick() }
+                .padding(16.dp),
             menu = MenuExtra(
                 leadingIcon = R.drawable.ic_trash,
                 title = UiText.StringResource(R.string.delete_note),
@@ -128,7 +133,6 @@ fun SheetExtrasMenuNoteContent(
                     colorTitle = MaterialTheme.colorScheme.error
                 )
             ),
-            onClick = { onDeleteClick() }
         )
     }
 }
@@ -143,6 +147,9 @@ private fun MenuExtras(
     LazyColumn(modifier = modifier) {
         items(menus) { menu ->
             TileButton(
+                modifier = Modifier
+                    .clickable { onMenuClick(menu) }
+                    .padding(16.dp),
                 menu = menu.copy(
                     value = if (menu.value == UiText.Unspecified) {
                         when (noteType) {
@@ -155,7 +162,6 @@ private fun MenuExtras(
                         }
                     } else menu.value
                 ),
-                onClick = onMenuClick,
             )
         }
     }
@@ -165,13 +171,10 @@ private fun MenuExtras(
 private fun TileButton(
     modifier: Modifier = Modifier,
     menu: MenuExtra,
-    onClick: (MenuExtra) -> Unit,
 ) {
     Row(
         modifier = modifier
-            .fillMaxWidth()
-            .clickable { onClick(menu) }
-            .padding(vertical = 16.dp),
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Row(

@@ -140,11 +140,9 @@ private fun ToolbarAddNotes(
         ) {
             Row(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
+                    .padding(start = 12.dp, end = 16.dp)
                     .clip(MaterialTheme.shapes.medium)
-                    .clickable {
-                        onBackClick()
-                    }
+                    .clickable { onBackClick() }
                     .padding(horizontal = 4.dp, vertical = 2.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
