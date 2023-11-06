@@ -45,10 +45,12 @@ import com.rasyidin.notepal.ui.component.Chip
 import com.rasyidin.notepal.ui.component.LineSeparator
 import com.rasyidin.notepal.ui.component.TextFieldNotes
 import com.rasyidin.notepal.ui.component.TextFieldTitleNotes
+import com.rasyidin.notepal.ui.component.TileButton
 import com.rasyidin.notepal.ui.component.ToolbarNotes
 import com.rasyidin.notepal.ui.screen.notes.detail.DragHandleSheetExtrasMenuNote
 import com.rasyidin.notepal.ui.screen.notes.detail.SheetExtrasMenuNoteContent
 import com.rasyidin.notepal.ui.theme.NotePalTheme
+import com.rasyidin.notepal.util.UiText
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -61,6 +63,8 @@ fun FreeNotesContent(
     onDeleteClick: () -> Unit = {},
     onMenuSheetClick: (MenuExtra) -> Unit = {},
     onColorNoteClick: (ColorNote) -> Unit = {},
+    onAddFreeText: () -> Unit = {},
+    onAddChecklist: () -> Unit = {}
 ) {
     var title by remember { mutableStateOf("") }
     var body by remember { mutableStateOf("") }
@@ -104,6 +108,7 @@ fun FreeNotesContent(
                     .weight(1F)
                     .verticalScroll(rememberScrollState())
             ) {
+                // Content section
                 Spacer(modifier = Modifier.height(24.dp))
                 TextFieldTitleNotes(
                     modifier = Modifier
@@ -124,8 +129,49 @@ fun FreeNotesContent(
                 )
                 Spacer(modifier = Modifier.height(24.dp))
                 LineSeparator(modifier = Modifier.padding(horizontal = 16.dp))
+
+                // Actions section
+                Spacer(modifier = Modifier.height(24.dp))
+                Text(
+                    text = stringResource(id = R.string.actions).uppercase(),
+                    color = MaterialTheme.colorScheme.outline,
+                    style = MaterialTheme.typography.labelSmall,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                TileButton(
+                    modifier = Modifier
+                        .clickable { onAddFreeText() }
+                        .padding(16.dp),
+                    menu = MenuExtra(
+                        leadingIcon = R.drawable.ic_pencil_alt,
+                        title = UiText.StringResource(R.string.add_free_text_area),
+                        colors = MenuExtra.Colors(
+                            colorLeadingIcon = MaterialTheme.colorScheme.primary,
+                            colorTitle = MaterialTheme.colorScheme.primary
+                        )
+                    )
+                )
+                TileButton(
+                    modifier = Modifier
+                        .clickable { onAddChecklist() }
+                        .padding(16.dp),
+                    menu = MenuExtra(
+                        leadingIcon = R.drawable.ic_check,
+                        title = UiText.StringResource(R.string.add_checklist),
+                        colors = MenuExtra.Colors(
+                            colorLeadingIcon = MaterialTheme.colorScheme.primary,
+                            colorTitle = MaterialTheme.colorScheme.primary
+                        )
+                    )
+                )
+                LineSeparator(modifier = Modifier.padding(horizontal = 16.dp))
+
+                // Reminder section
                 Spacer(modifier = Modifier.height(24.dp))
                 Reminder(date = "15/07/2021, 18:30")
+
+                // Label section
                 Spacer(modifier = Modifier.height(24.dp))
                 Labels(
                     labels = listOf(
@@ -142,6 +188,8 @@ fun FreeNotesContent(
                 )
                 Spacer(modifier = Modifier.height(24.dp))
             }
+
+            // Footer menu
             LineSeparator()
             Row(
                 modifier = Modifier.fillMaxWidth(),

@@ -44,4 +44,7 @@
     <string name="delete_note">Delete Note</string>
     <string name="view_all">View all</string>
     <string name="pinned_notes">Pinned Notes</string>
+    <string name="add_free_text_area">Add Free Text Area</string>
+    <string name="add_checklist">Add Checklist</string>
+    <string name="actions">Actions</string>
 </resources>
