@@ -43,7 +43,7 @@ class DetailNoteUseCaseImpl @Inject constructor(
                 if (notesContent.isNotEmpty()) {
                     notesContent.map { noteContent ->
                         noteContent.idNote = detailNote.id
-                        noteRepository.insertNoteContent(noteContent)
+                        noteRepository.upsertNoteContent(noteContent)
                     }
                     resultNote.contents.map { content ->
                         content.noteContent = content.noteContent
@@ -54,7 +54,7 @@ class DetailNoteUseCaseImpl @Inject constructor(
                 if (listTask.isNotEmpty()) {
                     listTask.forEach { taskNote ->
                         taskNote.idNote = detailNote.id
-                        noteRepository.insertNoteTask(taskNote)
+                        noteRepository.upsertNoteTask(taskNote)
                     }
                     resultNote.contents.map { content ->
                         content.task = content.task
@@ -65,7 +65,7 @@ class DetailNoteUseCaseImpl @Inject constructor(
                 if (tagsNote.isNotEmpty()) {
                     tagsNote.forEach { tagNote ->
                         tagNote.idNote = detailNote.id
-                        noteRepository.insertTagNote(tagNote)
+                        noteRepository.upsertTagNote(tagNote)
                     }
                     resultNote.tags = tagsNote
                 }
@@ -74,7 +74,7 @@ class DetailNoteUseCaseImpl @Inject constructor(
             asyncInsertTask.await()
             asyncInsertTags.await()
             resultNote = detailNote.copy(createdAt = DateUtils.currentDateTime())
-            noteRepository.insertNote(resultNote)
+            noteRepository.upsertNote(resultNote)
             send(ResultState.Success(resultNote))
         }.catch { e ->
             emit(ResultState.Error(e))
@@ -136,21 +136,21 @@ class DetailNoteUseCaseImpl @Inject constructor(
             val operationUpdateNotesContent = async {
                 if (notesContent.isNotEmpty()) {
                     notesContent.forEach { content ->
-                        noteRepository.updateNoteContent(content)
+                        noteRepository.upsertNoteContent(content)
                     }
                 }
             }
             val operationUpdateTasksNote = async {
                 if (listTask.isNotEmpty()) {
                     listTask.forEach { taskNote ->
-                        noteRepository.updateNoteTask(taskNote)
+                        noteRepository.upsertNoteTask(taskNote)
                     }
                 }
             }
             val operationUpdateTagsNote = async {
                 if (tagsNote.isNotEmpty()) {
                     tagsNote.map { tagNote ->
-                        noteRepository.updateTagNote(tagNote)
+                        noteRepository.upsertTagNote(tagNote)
                     }
                 }
             }

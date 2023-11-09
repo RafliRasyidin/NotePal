@@ -11,7 +11,7 @@ import androidx.room.Update
 interface NoteContentDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(noteContent: NoteContentEntity)
+    suspend fun upsert(noteContent: NoteContentEntity)
 
     @Delete
     suspend fun delete(noteContent: NoteContentEntity)

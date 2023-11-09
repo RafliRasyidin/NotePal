@@ -16,8 +16,8 @@ class NoteRepositoryImpl @Inject constructor(
     private val tagDao: TagDao,
     private val taskDao: TaskDao
 ) : NoteRepository {
-    override suspend fun insertNote(detailNote: DetailNote) {
-        noteDao.insert(detailNote.toEntity())
+    override suspend fun upsertNote(detailNote: DetailNote) {
+        noteDao.upsert(detailNote.toEntity())
     }
 
     override suspend fun deleteNote(detailNote: DetailNote) {
@@ -28,8 +28,8 @@ class NoteRepositoryImpl @Inject constructor(
         noteDao.update(detailNote.toEntity())
     }
 
-    override suspend fun insertNoteContent(noteContent: NoteContent) {
-        noteContentDao.insert(noteContent.toEntity())
+    override suspend fun upsertNoteContent(noteContent: NoteContent) {
+        noteContentDao.upsert(noteContent.toEntity())
     }
 
     override suspend fun deleteNoteContent(noteContent: NoteContent) {
@@ -44,8 +44,8 @@ class NoteRepositoryImpl @Inject constructor(
         noteContentDao.update(noteContent.toEntity())
     }
 
-    override suspend fun insertNoteTask(task: Task) {
-        taskDao.insert(task.toEntity())
+    override suspend fun upsertNoteTask(task: Task) {
+        taskDao.upsert(task.toEntity())
     }
 
     override suspend fun deleteNoteTask(task: Task) {
@@ -60,8 +60,8 @@ class NoteRepositoryImpl @Inject constructor(
         taskDao.update(task.toEntity())
     }
 
-    override suspend fun insertTagNote(tag: Tag) {
-        tagDao.insert(tag.toEntity())
+    override suspend fun upsertTagNote(tag: Tag) {
+        tagDao.upsert(tag.toEntity())
     }
 
     override suspend fun deleteTagNote(tag: Tag) {

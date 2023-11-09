@@ -11,7 +11,7 @@ import androidx.room.Update
 interface TaskDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(taskEntity: TaskEntity)
+    suspend fun upsert(taskEntity: TaskEntity)
 
     @Delete
     suspend fun delete(taskEntity: TaskEntity)

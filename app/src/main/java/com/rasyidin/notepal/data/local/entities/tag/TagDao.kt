@@ -11,7 +11,7 @@ import androidx.room.Update
 interface TagDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(tag: TagEntity)
+    suspend fun upsert(tag: TagEntity)
 
     @Update
     suspend fun update(tag: TagEntity)
