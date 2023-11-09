@@ -2,7 +2,7 @@ package com.rasyidin.notepal.domain.model.detail_note
 
 import com.rasyidin.notepal.data.local.entities.note.NoteEntity
 
-data class Note(
+data class DetailNote(
     val id: String = "",
     val title: String = "",
     val updatedAt: String = "",
@@ -13,10 +13,9 @@ data class Note(
     val backgroundColor: Int = -1,
     val containerColor: Int = -1,
     val onContainerColor: Int = -1,
-    var notesContent: List<NoteContent> = emptyList(),
     var tags: List<Tag> = emptyList(),
-    var listTask: List<Task> = emptyList(),
     val showSheetMenuExtra: Boolean = false,
+    val contents: List<Content> = emptyList()
 ) {
     fun toEntity() = NoteEntity(
         id = id,

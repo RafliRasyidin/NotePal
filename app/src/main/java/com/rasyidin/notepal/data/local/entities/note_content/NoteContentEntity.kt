@@ -20,9 +20,9 @@ data class NoteContentEntity(
     val orderContent: Int,
 
     @ColumnInfo("content_type")
-    val type: ContentType
+    val type: NoteContentType
 )
 
-enum class ContentType {
-    Image, Description
+enum class NoteContentType {
+    Image, FreeText
 }

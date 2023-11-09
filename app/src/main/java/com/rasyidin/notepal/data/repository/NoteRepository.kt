@@ -1,15 +1,15 @@
 package com.rasyidin.notepal.data.repository
 
-import com.rasyidin.notepal.domain.model.detail_note.Note
+import com.rasyidin.notepal.domain.model.detail_note.DetailNote
 import com.rasyidin.notepal.domain.model.detail_note.NoteContent
 import com.rasyidin.notepal.domain.model.detail_note.Tag
 import com.rasyidin.notepal.domain.model.detail_note.Task
 
 interface NoteRepository {
 
-    suspend fun insertNote(note: Note)
-    suspend fun deleteNote(note: Note)
-    suspend fun updateNote(note: Note)
+    suspend fun insertNote(detailNote: DetailNote)
+    suspend fun deleteNote(detailNote: DetailNote)
+    suspend fun updateNote(detailNote: DetailNote)
     suspend fun insertNoteContent(noteContent: NoteContent)
     suspend fun deleteNoteContent(noteContent: NoteContent)
     suspend fun deleteNoteContentByIdNote(idNote: String)

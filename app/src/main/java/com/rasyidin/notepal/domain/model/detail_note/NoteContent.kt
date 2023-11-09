@@ -1,19 +1,19 @@
 package com.rasyidin.notepal.domain.model.detail_note
 
-import com.rasyidin.notepal.data.local.entities.note_content.ContentType
 import com.rasyidin.notepal.data.local.entities.note_content.NoteContentEntity
+import com.rasyidin.notepal.data.local.entities.note_content.NoteContentType
 
 data class NoteContent(
     val id: String,
     var idNote: String,
-    var content: String,
+    var value: String,
     var orderContent: Int,
-    var type: ContentType
+    var type: NoteContentType
 ) {
     fun toEntity() = NoteContentEntity(
         id = id,
         idNote = idNote,
-        content = content,
+        content = value,
         orderContent = orderContent,
         type = type
     )

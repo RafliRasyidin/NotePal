@@ -26,7 +26,9 @@ import com.rasyidin.notepal.ui.screen.notes.detail.DetailNoteScreen
 import com.rasyidin.notepal.ui.screen.profile.ProfileScreen
 import com.rasyidin.notepal.ui.screen.search.SearchNotesScreen
 import com.rasyidin.notepal.ui.theme.NotePalTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

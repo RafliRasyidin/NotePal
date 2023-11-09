@@ -2,7 +2,10 @@ package com.rasyidin.notepal.domain.usecase.detail_note
 
 import com.rasyidin.notepal.data.repository.NoteRepository
 import com.rasyidin.notepal.domain.ResultState
-import com.rasyidin.notepal.domain.model.detail_note.Note
+import com.rasyidin.notepal.domain.model.detail_note.ContentType
+import com.rasyidin.notepal.domain.model.detail_note.DetailNote
+import com.rasyidin.notepal.domain.model.detail_note.NoteContent
+import com.rasyidin.notepal.domain.model.detail_note.Task
 import com.rasyidin.notepal.util.DateUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -13,52 +16,64 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 interface DetailNoteUseCase {
-    fun insertNote(note: Note): Flow<ResultState<Note>>
-    fun deleteNote(note: Note): Flow<ResultState<Nothing>>
-    fun updateNote(note: Note): Flow<ResultState<Note>>
+    fun insertNote(detailNote: DetailNote): Flow<ResultState<DetailNote>>
+    fun deleteNote(detailNote: DetailNote): Flow<ResultState<Nothing>>
+    fun updateNote(detailNote: DetailNote): Flow<ResultState<DetailNote>>
 }
 
 class DetailNoteUseCaseImpl @Inject constructor(
-    private val noteRepository: NoteRepository
-): DetailNoteUseCase {
-    override fun insertNote(note: Note): Flow<ResultState<Note>> {
+    private val noteRepository: NoteRepository,
+) : DetailNoteUseCase {
+    override fun insertNote(detailNote: DetailNote): Flow<ResultState<DetailNote>> {
         return channelFlow {
             send(ResultState.Loading())
-            val notesContent = note.notesContent
-            val listTask = note.listTask
-            val tagsNote = note.tags
-            var resultNote = note
-            val operationInsertNotesContent = async {
+            val notesContent = mutableListOf<NoteContent>()
+            val listTask = mutableListOf<Task>()
+            detailNote.contents.forEach { content ->
+                if ((content.type == ContentType.FreeText || content.type == ContentType.Image) && content.noteContent != null) {
+                    notesContent.add(content.noteContent!!)
+                }
+                if (content.type == ContentType.Task && content.task != null) {
+                    listTask.add(content.task!!)
+                }
+            }
+            val tagsNote = detailNote.tags
+            var resultNote = detailNote
+            val asyncInsertNotesContent = async {
                 if (notesContent.isNotEmpty()) {
                     notesContent.map { noteContent ->
-                        noteContent.idNote = note.id
+                        noteContent.idNote = detailNote.id
                         noteRepository.insertNoteContent(noteContent)
                     }
-                    resultNote.notesContent = notesContent
+                    resultNote.contents.map { content ->
+                        content.noteContent = content.noteContent
+                    }
                 }
             }
-            val operationInsertTask = async {
+            val asyncInsertTask = async {
                 if (listTask.isNotEmpty()) {
                     listTask.forEach { taskNote ->
-                        taskNote.idNote = note.id
+                        taskNote.idNote = detailNote.id
                         noteRepository.insertNoteTask(taskNote)
                     }
-                    resultNote.listTask = listTask
+                    resultNote.contents.map { content ->
+                        content.task = content.task
+                    }
                 }
             }
-            val operationInsertTags = async {
+            val asyncInsertTags = async {
                 if (tagsNote.isNotEmpty()) {
                     tagsNote.forEach { tagNote ->
-                        tagNote.idNote = note.id
+                        tagNote.idNote = detailNote.id
                         noteRepository.insertTagNote(tagNote)
                     }
                     resultNote.tags = tagsNote
                 }
             }
-            operationInsertNotesContent.await()
-            operationInsertTask.await()
-            operationInsertTags.await()
-            resultNote = note.copy(createdAt = DateUtils.currentDateTime())
+            asyncInsertNotesContent.await()
+            asyncInsertTask.await()
+            asyncInsertTags.await()
+            resultNote = detailNote.copy(createdAt = DateUtils.currentDateTime())
             noteRepository.insertNote(resultNote)
             send(ResultState.Success(resultNote))
         }.catch { e ->
@@ -66,23 +81,33 @@ class DetailNoteUseCaseImpl @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
-    override fun deleteNote(note: Note): Flow<ResultState<Nothing>> {
+    override fun deleteNote(detailNote: DetailNote): Flow<ResultState<Nothing>> {
         return channelFlow {
             send(ResultState.Loading())
-            noteRepository.deleteNote(note)
+            val notesContent = mutableListOf<NoteContent>()
+            val listTask = mutableListOf<Task>()
+            detailNote.contents.forEach { content ->
+                if ((content.type == ContentType.FreeText || content.type == ContentType.Image) && content.noteContent != null) {
+                    notesContent.add(content.noteContent!!)
+                }
+                if (content.type == ContentType.Task && content.task != null) {
+                    listTask.add(content.task!!)
+                }
+            }
+            noteRepository.deleteNote(detailNote)
             val operationDeleteNotesContent = async {
-                if (note.notesContent.isNotEmpty()) {
-                    noteRepository.deleteNoteContentByIdNote(note.id)
+                if (notesContent.isNotEmpty()) {
+                    noteRepository.deleteNoteContentByIdNote(detailNote.id)
                 }
             }
             val operationDeleteTasksNote = async {
-                if (note.listTask.isNotEmpty()) {
-                    noteRepository.deleteNoteTaskByIdNote(note.id)
+                if (listTask.isNotEmpty()) {
+                    noteRepository.deleteNoteTaskByIdNote(detailNote.id)
                 }
             }
             val operationDeleteTagsNote = async {
-                if (note.tags.isNotEmpty()) {
-                    noteRepository.deleteTagNoteByIdNote(note.id)
+                if (detailNote.tags.isNotEmpty()) {
+                    noteRepository.deleteTagNoteByIdNote(detailNote.id)
                 }
             }
             operationDeleteNotesContent.await()
@@ -94,12 +119,20 @@ class DetailNoteUseCaseImpl @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
-    override fun updateNote(note: Note): Flow<ResultState<Note>> {
+    override fun updateNote(detailNote: DetailNote): Flow<ResultState<DetailNote>> {
         return channelFlow {
             send(ResultState.Loading())
-            val notesContent = note.notesContent
-            val listTask = note.listTask
-            val tagsNote = note.tags
+            val notesContent = mutableListOf<NoteContent>()
+            val listTask = mutableListOf<Task>()
+            detailNote.contents.forEach { content ->
+                if ((content.type == ContentType.FreeText || content.type == ContentType.Image) && content.noteContent != null) {
+                    notesContent.add(content.noteContent!!)
+                }
+                if (content.type == ContentType.Task && content.task != null) {
+                    listTask.add(content.task!!)
+                }
+            }
+            val tagsNote = detailNote.tags
             val operationUpdateNotesContent = async {
                 if (notesContent.isNotEmpty()) {
                     notesContent.forEach { content ->
@@ -124,7 +157,7 @@ class DetailNoteUseCaseImpl @Inject constructor(
             operationUpdateNotesContent.await()
             operationUpdateTasksNote.await()
             operationUpdateTagsNote.await()
-            val resultNote = note.copy(updatedAt = DateUtils.currentDateTime())
+            val resultNote = detailNote.copy(updatedAt = DateUtils.currentDateTime())
             noteRepository.updateNote(resultNote)
             send(ResultState.Success(resultNote))
         }.catch { e ->

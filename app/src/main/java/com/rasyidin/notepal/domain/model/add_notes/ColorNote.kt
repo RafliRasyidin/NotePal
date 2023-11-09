@@ -10,7 +10,7 @@ import com.rasyidin.notepal.ui.theme.notesYellow
 
 data class ColorNote(
     val id: String,
-    val color: Color
+    var color: Color
 )
 
 val colorsNote = listOf(
@@ -39,3 +39,10 @@ val colorsNote = listOf(
         color = notesSalmon
     ),
 )
+
+const val ColorIdWhite = "1"
+const val ColorIdRed = "2"
+const val ColorIdPurple = "3"
+const val ColorIdGreen = "4"
+const val ColorIdYellow = "5"
+const val ColorIdSalmon = "6"

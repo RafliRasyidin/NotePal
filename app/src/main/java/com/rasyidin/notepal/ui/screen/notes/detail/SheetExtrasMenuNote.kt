@@ -30,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rasyidin.notepal.R
+import com.rasyidin.notepal.domain.model.add_notes.ColorIdWhite
 import com.rasyidin.notepal.domain.model.add_notes.ColorNote
 import com.rasyidin.notepal.domain.model.add_notes.MenuExtra
 import com.rasyidin.notepal.domain.model.add_notes.NoteType
@@ -85,6 +86,7 @@ fun SheetExtrasMenuNoteContent(
     onMenuClick: (MenuExtra) -> Unit = {},
     onColorClick: (ColorNote) -> Unit = {}
 ) {
+    colorsNote.find { it.id == ColorIdWhite }?.color = MaterialTheme.colorScheme.background
     Column(
         modifier = modifier
             .fillMaxWidth()

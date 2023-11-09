@@ -4,7 +4,7 @@ import com.rasyidin.notepal.data.local.entities.note.NoteDao
 import com.rasyidin.notepal.data.local.entities.note_content.NoteContentDao
 import com.rasyidin.notepal.data.local.entities.tag.TagDao
 import com.rasyidin.notepal.data.local.entities.task.TaskDao
-import com.rasyidin.notepal.domain.model.detail_note.Note
+import com.rasyidin.notepal.domain.model.detail_note.DetailNote
 import com.rasyidin.notepal.domain.model.detail_note.NoteContent
 import com.rasyidin.notepal.domain.model.detail_note.Tag
 import com.rasyidin.notepal.domain.model.detail_note.Task
@@ -16,16 +16,16 @@ class NoteRepositoryImpl @Inject constructor(
     private val tagDao: TagDao,
     private val taskDao: TaskDao
 ) : NoteRepository {
-    override suspend fun insertNote(note: Note) {
-        noteDao.insert(note.toEntity())
+    override suspend fun insertNote(detailNote: DetailNote) {
+        noteDao.insert(detailNote.toEntity())
     }
 
-    override suspend fun deleteNote(note: Note) {
-        noteDao.delete(note.toEntity())
+    override suspend fun deleteNote(detailNote: DetailNote) {
+        noteDao.delete(detailNote.toEntity())
     }
 
-    override suspend fun updateNote(note: Note) {
-        noteDao.update(note.toEntity())
+    override suspend fun updateNote(detailNote: DetailNote) {
+        noteDao.update(detailNote.toEntity())
     }
 
     override suspend fun insertNoteContent(noteContent: NoteContent) {

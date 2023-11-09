@@ -47,4 +47,7 @@
     <string name="add_free_text_area">Add Free Text Area</string>
     <string name="add_checklist">Add Checklist</string>
     <string name="actions">Actions</string>
+    <string name="hint_task">Write your task here...</string>
+    <string name="add_image">Add Image</string>
+    <string name="delete_success">Delete Note Successfully</string>
 </resources>
