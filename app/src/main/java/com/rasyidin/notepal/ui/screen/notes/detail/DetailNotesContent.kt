@@ -143,7 +143,7 @@ fun DetailNotesContent(
                             TextFieldNotes(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+                                    .padding(start = 16.dp, end = 16.dp),
                                 text = item.noteContent?.value.orEmpty(),
                                 hint = stringResource(id = R.string.hint_notes),
                                 onTextChange = { newText ->

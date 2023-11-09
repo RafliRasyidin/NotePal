@@ -53,7 +53,7 @@ fun DetailNoteScreen(
             containerColor = containerColor.toArgb(),
             onContainerColor = onBackgroundColor.toArgb()
         )
-        viewModel.setEvent(DetailNoteEvent.OnFirstTime)
+        viewModel.setEvent(DetailNoteEvent.Initialize)
         while (true) {
             delay(5000)
             viewModel.setEvent(DetailNoteEvent.UpdateNote)

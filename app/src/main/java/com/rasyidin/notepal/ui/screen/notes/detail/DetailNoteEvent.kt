@@ -23,5 +23,5 @@ sealed interface DetailNoteEvent {
     data object AddFreeText : DetailNoteEvent
     data object AddChecklist : DetailNoteEvent
     data object AddImage : DetailNoteEvent
-    data object OnFirstTime : DetailNoteEvent
+    data object Initialize : DetailNoteEvent
 }

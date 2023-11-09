@@ -1,6 +1,5 @@
 package com.rasyidin.notepal.ui.screen.notes.detail
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -68,7 +67,7 @@ class DetailNotesViewModel @Inject constructor(
             is DetailNoteEvent.OnTitleChange -> {
                 uiState = uiState.copy(title = event.title)
             }
-            DetailNoteEvent.OnFirstTime -> {
+            DetailNoteEvent.Initialize -> {
                 val idNote = IdGeneratorUtils.generateId(IdGeneratorUtils.PREFIX_ID_NOTE)
                 val idContent = IdGeneratorUtils.generateId(IdGeneratorUtils.PREFIX_ID_CONTENT_FREE_TEXT, 25)
                 val tempContents = uiState.contents.toMutableList()
@@ -170,7 +169,6 @@ class DetailNotesViewModel @Inject constructor(
 
     private fun updateNote() {
         viewModelScope.launch {
-            Log.d("UpdateNote", uiState.toString())
             useCase.updateNote(uiState).collect { result ->
                 result.onSuccess { note ->
                     note?.let {
